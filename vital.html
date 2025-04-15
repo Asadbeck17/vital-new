@@ -22,27 +22,36 @@
                 <div class="logo">
                     <a href="#"><img src="/images/Vital.png" alt="Logo"></a>
                 </div>
-                <div class="call-box">
-                    <div>
-                        <img src="/images/phone.svg" alt="Phone">
+                <div class="navbar_links">
+                    <div class="call-box">
+                        <div>
+                            <img src="/images/phone.svg" alt="Phone">
+                        </div>
+                        <div class="call-line">
+                            <h4>Bog'lanish uchun</h4>
+                            <p>+998 99 805-80-80</p>
+                        </div>
                     </div>
-                    <div class="call-line">
-                        <h4>Bog'lanish uchun</h4>
-                        <p>+998 99 805-80-80</p>
+                    <div class="nav-items">
+                        <ul class="list menu" id="menu">
+                            <li><a href="#">Asosiy</a></li>
+                            <li><a href="#">Biz haqimizda</a></li>
+                            <li><a href="#">Mahsulotlar</a></li>
+                            <li><a href="#">Xizmatlar</a></li>
+                            <li><a href="#">Bog'lanish</a></li>                        </ul>
                     </div>
+                    <div class="nav-icons">
+                        <div class="nav-icon"><img src="/images/search.svg" alt="Search"></div>
+                        <div class="nav-icon"><img src="/images/globe.svg" alt=""></div>
+                    </div>
+                    <div class="burger" id="burger">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                      </div>
                 </div>
-                <div class="nav-items">
-                    <ul class="list">
-                        <li><a href="#">Asosiy</a></li>
-                        <li><a href="#">Biz haqimizda</a></li>
-                        <li><a href="#">Mahsulotlar</a></li>
-                        <li><a href="#">Xizmatlar</a></li>
-                        <li><a href="#">Bog'lanish</a></li>                        </ul>
-                </div>
-                <div class="nav-icons">
-                    <div class="nav-icon"><img src="/images/search.svg" alt="Search"></div>
-                    <div class="nav-icon"><img src="/images/globe.svg" alt=""></div>
-                </div>
+                
+  
             </div>
 
             <div class="content"> 
@@ -61,6 +70,16 @@
         </div>
 
     </div>
+
+
+    <script>    const burger = document.getElementById('burger');
+        const menu = document.getElementById('menu');
+    
+        burger.addEventListener('click', () => {
+          burger.classList.toggle('active');
+          menu.classList.toggle('active');
+        });
+    </script>
     
 </body>
 </html>

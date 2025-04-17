@@ -503,6 +503,238 @@ a {
     width: 240px;
 }
 
+.delivery {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 100px 0;
+    background-color: white;
+}
+
+.card {
+    width: 80%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 0 5px 3px aqua;
+}
+
+.people {
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-left: 100px;
+}
+
+.card-box {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    padding: 100px;
+    gap: 20px;
+}
+
+.card-box h1 {
+    width: 75%;
+    font-size: 56px;
+}
+
+.card-text {
+    width: 75%;
+    font-size: 20px;
+    color: rgb(100, 100, 100);
+}
+
+.card-box span {
+    color: aqua;
+}
+
+.card-box-item {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    padding-top: 20px;
+    gap: 20px;
+}
+
+.card-box-item p {
+    font-size: 18px;
+    border-left: 4px solid #346bae;
+    padding-left: 10px;
+    font-weight: 600;
+}
+
+.card-box-block {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.card-box-item img {
+    width: 34px;
+}
+
+.buy-btn {
+    width: 100%;
+    padding-top: 20px;  
+}
+
+.buy-btn button {
+    width: 50%;
+    height: 60px;
+    border: 2px solid #346bae;
+    border-radius: 50px;
+    font-size: 18px;
+    font-weight: 600;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.buy-btn button:hover {
+    background-color: #346bae;
+}
+
+.addition {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 100px 0;
+    background-color: #aaaa;
+}
+
+.addition-box {
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding-top: 50px;
+}
+
+.add-header {
+    width: 60%;
+    font-size: 48px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.add-header span {
+    color: aqua;
+}
+
+.addition-box p {
+    width: 75%;
+    font-size: 20px;
+}
+
+.add-more {
+    display: none;
+}
+
+.add-text {
+    display: block;
+}
+
+.add-btn {
+    font-size: 24px;
+    padding: 20px;
+    color: orange;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.marks {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.marks p {
+    width: 80%;
+    height: 45px;
+    text-align: center;
+    font-size: 20px;
+}
+
+.addition-marks {
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+    padding: 50px;
+    gap: 20px;
+}
+
+.addition-mark {
+    width: 180px;
+    height: 180px;
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+}
+
+.addition-mark img {
+    width: 120px;
+    height: 120px;
+}
+
+.video-place {
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    padding-top: 100px;
+}
+
+.video-place video {
+    width: 300px;
+}
+
+.video-left {
+    width: 80px;
+    height: 80px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: orange;
+    border-radius: 50%;
+}
+
+.video-right {
+    width: 80px;
+    height: 80px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: orange;
+    border-radius: 50%;
+}
+
+.video-left img {
+    width: 40px;
+}
+
+.video-right img {
+    width: 40px;
+}
+
+
 
 
 
@@ -708,6 +940,82 @@ a {
     .product-mark span {
         font-size: 18px;
     }
+
+    .people {
+        width: 50%;
+        padding-left: 30px;
+    }
+
+    .card-box {
+        padding: 50px;
+    }
+
+    .card-box-block {
+        width: 75%;
+    }
+
+    .card-box h1 {
+        width: 100%;
+        font-size: 48px;
+    }
+
+    .card-text {
+        width: 100%;
+        font-size: 18px;
+    }
+
+    .card-box-item p {
+        font-size: 16px;
+    }
+
+    .card-box-item img {
+        width: 32px;
+    }
+
+    .buy-btn button {
+        width: 50%;
+        height: 50px;
+        font-size: 14px;
+    }
+
+    .buy-btn img {
+        width: 20px;
+    }
+
+    .add-header {
+        font-size: 32px;
+    }
+
+    .addition-box p {
+        width: 75%;
+        font-size: 18px;
+    }
+
+    .marks {
+        width: 220px;
+        height: 280px;
+    }
+
+    .addition-marks {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+
+    .video-place {
+        padding: 0;
+        display: flex;
+        justify-content: space-evenly;
+    }
+
+    .video-place video {
+        width: 250px;
+    }
+
+    .add-btn {
+        font-size: 20px;
+    }
 } 
 
 @media(max-width:900px) {
@@ -781,6 +1089,75 @@ a {
     .products h2 {
         font-size: 48px;
     }
+
+    .people {
+        width: 50%;
+        padding-left: 30px;
+    }
+
+    .people img {
+        width: 100%;
+    }
+
+    .card-box h1 {
+        width: 100%;
+        font-size: 40px;
+    }
+
+    .card-text {
+        width: 100%;
+        font-size: 16px;
+    }
+
+    .card-box-item p {
+        font-size: 16px;
+    }
+
+    .card-box-item img {
+        width: 30px;
+    }
+
+    .card-box-block {
+        width: 75%;
+    }
+
+    .buy-btn button {
+        width: 50%;
+        height: 50px;
+        font-size: 14px;
+    }
+
+    .add-header {
+        font-size: 28px;
+    }
+
+    .addition-box p {
+        width: 75%;
+        font-size: 16px;
+    }
+
+    .add-btn {
+        font-size: 18px;
+    }
+
+    .marks {
+        width: 200px;
+        height: 250px;
+    }
+
+    .video-left {
+        width: 60px;
+        height: 60px;
+    }
+
+    .video-right {
+        width: 60px;
+        height: 60px;
+    }
+
+    .marks p {
+        font-size: 18px;
+    }
 }
 
 @media(max-width: 600px) {
@@ -831,7 +1208,7 @@ a {
 
     .info p {
         width: 100%;
-        font-size: 14px;
+        font-size: 16px;
     }
 
     .more-btn {
@@ -889,6 +1266,85 @@ a {
 
     .products h2 {
         font-size: 40px;
+    }
+
+    .card {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+    }
+
+    .card-box {
+        width: 75%;
+        padding: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+    }
+
+    .people {
+        width: 100%;
+        padding: 20px;
+    }
+
+    .people img {
+        width: 50%;
+    }
+
+    .card-box h1 {
+        width: 100%;
+        font-size: 40px;
+    }
+
+    .card-text {
+        width: 100%;
+        font-size: 16px;
+    }
+
+    .card-box-block {
+        width: 100%;
+        padding: 0;
+    }
+
+    .card-box-item p {
+        font-size: 16px;
+    }
+
+    .card-box-item img {
+        width: 32px;
+    }
+
+    .buy-btn {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding-bottom: 20px;
+    }
+
+    .buy-btn button {
+        width: 75%;
+        height: 50px;
+        font-size: 14px;
+    }
+
+    .add-header {
+        font-size: 20px;
+    }
+
+    .addition-box p {
+        width: 100%;
+        font-size: 16px;
+    }
+
+    .addition-marks {
+        display: flex;
+        gap: 50px;
+    }
+
+    .marks p {
+        font-size: 16px;
     }
 }
 
@@ -957,5 +1413,50 @@ a {
         width: 50%;
         font-size: 36px;
         text-align: center;
+    }
+
+    .card-box h1 {
+        width: 100%;
+        font-size: 30px;
+    }
+
+    .card-box p {
+        width: 100%;
+        font-size: 14px;
+    }
+
+    .card-box-item p {
+        font-size: 14px;
+    }
+
+    .buy-btn button {
+        font-size: 12px;
+    }
+
+    .buy-btn img {
+        width: 20px;
+    }
+
+    .add-header {
+        width: 100%;
+        font-size: 20px;
+    }
+
+    .video-place video {
+        width: 200px;
+    }
+
+    .video-place img {
+        width: 30px;
+    }
+
+    .video-left {
+        width: 40px;
+        height: 40px;
+    }
+
+    .video-right {
+        width: 40px;
+        height: 40px;
     }
 }

@@ -199,8 +199,8 @@ a {
 }
 
 .about-us {
-    width: 100%;
-    height: 100%;
+    width: 100vw;
+    height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -734,8 +734,281 @@ a {
     width: 40px;
 }
 
+.contact-us {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    padding: 100px 0;
+    gap: 30px;
+    font-size: 32px;
+    background-color: white;
+}
 
+.contact-us h2 {
+    font-size: 64px;
+}
 
+.contact-content {
+    display: flex;
+    width: 100%;
+    gap: 15px;
+    padding: 50px;
+    justify-content: center;
+}
+
+.contact-card-box {
+    width: 800px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    box-sizing: border-box;
+    padding: 0 50px;
+    gap: 30px;
+}
+
+.office-card {
+    width: 100%;
+    background-color: white;
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    justify-content: center;
+    align-items: start;
+    box-shadow: 0 0 5px 5px #3063A1;
+    border-radius: 10px;
+    box-sizing: border-box;
+}
+
+.office-card h6 {
+    font-size: 28px;
+    border-left: 5px solid #3063A1;
+    padding-left: 10px;
+}
+
+.info-card {
+    width: 100%;
+    display: flex;
+    gap: 10px;
+    font-size: 14px;
+    justify-content: start;
+    align-items: center;
+    padding: 0;
+}
+
+.info-card span {
+    width: 250px;
+    color: black;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.timetable {
+    display: flex;
+    gap: 10px;
+    font-size: 18px;
+}
+
+.timetable span {
+    color: black;
+    font-weight: 700;
+}
+
+.location {
+    width: 100%;
+    border-radius: 10px;
+    box-shadow: 0 0 5px 5px #3063A1;
+}
+
+iframe {
+    width: 100%; 
+    height: 800px;
+    border-radius: 10px;
+}
+
+.your-contact {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    padding: 100px;
+    gap: 30px;
+    font-size: 32px;
+    background-color: whitesmoke;
+}
+
+.your-contact h1 {
+    font-size: 64px;
+}
+
+.your-contact-box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    padding: 50px;
+    gap: 30px;
+}
+
+.input-box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 20px;
+    padding: 10px;
+}
+
+.input-box input {
+    width: 300px;
+    height: 50px;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #3063A1;
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+.input-box input:focus {
+    outline: none;
+    transition: .5s ease;
+    box-shadow: 0 0 3px 3px #3063A1;
+}
+
+.first-col {
+    display: flex;
+    flex-direction: row;
+    gap: 50px;
+}
+
+.second-col {
+    display: flex;
+    flex-direction: row;
+    gap: 50px;
+}
+.viloyat-select {
+    width: 300px;
+    height: 50px;
+    border-radius: 5px;
+    padding: 5px;
+    font-weight: 600;
+    font-size: 18px;
+    border: 1px solid #3063A1;
+    color: #757575;
+}
+
+.viloyat-select:focus {
+    outline: none;
+    transition: .5s ease;
+    box-shadow: 0 0 3px 3px #3063A1;
+}
+
+.send-btn {
+    width: 300px;
+    padding: 15px;
+    border-radius: 5px;
+    border: 1px solid #3063A1;
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    cursor: pointer;
+}
+
+.send-btn:hover {
+    background-color: #3063A1;
+    transition: .5s ease;
+    color: white;
+}
+
+.form-side {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    padding-top: 100px;
+    gap: 30px;
+    font-size: 32px;
+    background-color: #3063A1;
+}
+
+.footer-btn {
+    width: 250px;
+    padding: 20px;
+    border-radius: 5px;
+    border: none;
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    cursor: pointer;
+}
+
+.footer-btn:hover {
+    background-color: orange;
+    transition: .5s ease;
+    color: white;
+}
+
+.footer-top {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.footer-list ul {
+    font-size: 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.footer-list a {
+    color: white;
+    letter-spacing: 1px;
+}
+
+.footer-list a:hover {
+    border-bottom: 1px solid #fff;
+    transition: .4s ease;
+}
+
+.footer-down {
+    width: 100%;
+    font-size: 12px;
+    color: white;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    letter-spacing: 1px;
+    padding: 80px 0 10px 0;    
+    font-weight: 600;
+}
+
+.footer-center-items {
+    display: flex;
+    gap: 20px;
+    padding-bottom: 10px;
+    text-decoration: underline;
+}
 
 
 
@@ -1016,6 +1289,57 @@ a {
     .add-btn {
         font-size: 20px;
     }
+
+    .contact-us h2 {
+        font-size: 48px;
+    }
+
+    .contact-content {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        gap: 30px;
+    }
+
+    .contact-card-box {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: row;
+    }
+
+    .office-card {
+        width: 400px;
+        height: 400px;
+        padding: 50px;
+    }
+
+    .location {
+        width: 830px;
+        height: 830px;
+        display: flex;
+        justify-content: center;
+    }
+
+    iframe {
+        width: 100%;
+        height: 100%;
+    }
+
+    .your-contact h1 {
+        font-size: 48px;
+    }
+
+    .input-box input {
+        width: 250px;
+    }
+
+    .viloyat-select {
+        width: 250px;
+    }
 } 
 
 @media(max-width:900px) {
@@ -1157,6 +1481,69 @@ a {
 
     .marks p {
         font-size: 18px;
+    }
+
+
+    .contact-us h2 {
+        font-size: 40px;
+    }
+
+    .office-card {
+        width: 300px;
+        height: 300px;
+        padding: 20px 30px;
+        display: flex;
+        gap: 15px;
+    }
+
+    .office-card h6 {
+        font-size: 24px;
+    }
+
+    .info-card span {
+        font-size: 16px;
+    } 
+
+    .timetable {
+        font-size: 16px;
+    }
+
+    .location {
+        width: 630px;
+        height: 630px;
+    }
+
+    iframe {
+        width: 100%;
+        height: 100%;
+    }
+
+    .your-contact h1 {
+        font-size: 48px;
+    }
+
+    .first-col {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .second-col {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .input-box input {
+        width: 400px;
+    }
+
+    .viloyat-select {
+        width: 400px;
+    }
+
+    .send-btn {
+        width: 400px;
     }
 }
 
@@ -1346,6 +1733,69 @@ a {
     .marks p {
         font-size: 16px;
     }
+
+    .contact-us {
+        padding: 50px 0;
+    }
+
+    .contact-us h2 {
+        font-size: 32px;
+    }
+
+    .contact-card-box {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+    }
+
+    .office-card {
+        width: 400px;
+        height: 400px;
+        display: flex;
+        justify-content: center;
+        padding: 0 30px;
+    }
+
+    .info-card span {
+        font-size: 18px;
+    }
+
+    .timetable span {
+        font-size: 18px;
+    }
+
+    .location {
+        width: 400px;
+        height: 400px;
+    }
+
+    iframe {
+        width: 100%;
+        height: 100%;
+    }
+
+    .input-box input {
+        width: 300px;
+    }
+
+    .viloyat-select {
+        width: 300px;
+    }
+
+    .send-btn {
+        width: 300px;
+    }
+
+    .footer-down {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: start;
+        padding-left: 80px;
+        gap: 20px;
+    }
 }
 
 @media(max-width:426px) {
@@ -1458,5 +1908,59 @@ a {
     .video-right {
         width: 40px;
         height: 40px;
+    }
+
+    .contact-header { 
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .contact-us h2 {
+        width: 75%;
+        text-align: center;
+        font-size: 28px;
+    }
+
+    .contact-content {
+        padding: 20px 50px;
+    }
+
+    .office-card {
+        width: 320px;
+        height: 320px;
+    }
+
+    .location {
+        width: 320px;
+        height: 320px;
+    }
+
+    .your-contact h1 {
+        font-size: 40px;
+    }
+
+    .footer-top {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .footer-icons {
+        width: 100%;
+        display: flex;
+        justify-content: space-evenly;
+        flex-direction: row;
+        padding-top: 20px;
+    }
+
+    .footer-icons img {
+        width: 30px;
+        height: 30px;
+    }
+
+    .footer-down {
+        padding: 30px;
     }
 }

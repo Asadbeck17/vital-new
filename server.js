@@ -22,9 +22,9 @@ const TELEGRAM_API_URL = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`;
 app.post('/submit-form', async (req, res) => {
     console.log("Qabul qilingan so'rov body:", req.body);
 
-    const { name, family, email, number, region, address, turi, count } = req.body;
+    const { name, family, email, number, region, address, turi, count, latitude, longitude} = req.body;
 
-    if (!name || !family || !email || !number || !region || !address || !turi || !count) {
+    if (!name || !family || !email || !number || !region || !address || !turi || !count || !latitude || !longitude) {
         return res.status(400).json({ success: false, message: "Barchasi to'ldirilishi shart!" });
     }
 
@@ -37,7 +37,9 @@ app.post('/submit-form', async (req, res) => {
         `<b>🌏Viloyat:</b> ${region}\n` +
         `<b>📍Manzil:</b> ${address}\n` +
         `<b>📌Suv turi:</b> ${turi}\n` +
-        `<b>✔Soni:</b> ${count}\n`;
+        `<b>✔Soni:</b> ${count} ta\n\n` +
+        `<b>📍Koordinatalar:</b> \n Lat: ${latitude} \n Lng: ${longitude}\n\n` +
+        `<b>🕒Vaqt:</b> ${new Date().toLocaleString('uz-UZ')}`;
 
     const payload = {
         chat_id: CHANNEL_ID,

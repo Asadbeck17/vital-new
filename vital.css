@@ -28,7 +28,8 @@ body {
     filter: brightness(90%);
     object-fit: cover;
 }
-html{
+
+html {
     scroll-behavior: smooth;
 }
 
@@ -364,7 +365,7 @@ a {
     width: 45%;
     font-size: 20px;
     line-height: 1.5;
-    color: rgb(100,100,100);
+    color: rgb(100, 100, 100);
 }
 
 .line {
@@ -581,7 +582,7 @@ a {
 
 .buy-btn {
     width: 100%;
-    padding-top: 20px;  
+    padding-top: 20px;
 }
 
 .buy-btn button {
@@ -825,7 +826,7 @@ a {
 }
 
 iframe {
-    width: 100%; 
+    width: 100%;
     height: 800px;
     border-radius: 10px;
 }
@@ -895,6 +896,7 @@ iframe {
     flex-direction: row;
     gap: 50px;
 }
+
 .viloyat-select {
     width: 300px;
     height: 50px;
@@ -999,7 +1001,7 @@ iframe {
     justify-content: space-evenly;
     align-items: center;
     letter-spacing: 1px;
-    padding: 80px 0 10px 0;    
+    padding: 80px 0 10px 0;
     font-weight: 600;
 }
 
@@ -1019,6 +1021,120 @@ iframe {
     font-size: 18px;
     border: 1px solid #3063A1;
     color: #757575;
+}
+
+.form-container {
+    width: 90%;
+    /* Ekran kengligining 90%ini egallasin */
+    max-width: 650px;
+    /* Lekin 650px dan oshmasin */
+    margin: 30px auto;
+    /* ...qolgan stillar... */
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.form-group input[type="text"],
+.form-group input[type="tel"] {
+    width: 95%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+#map {
+    height: 350px;
+    width: 600px;
+    /* Vaqtincha aniq kenglik berib ko'ring */
+    max-width: 100%;
+    /* Kichik ekranlarda sig'ishi uchun */
+    margin: 0 auto 10px auto;
+    /* Markazga olish va pastdan joy */
+    border: 1px solid #bbb;
+    border-radius: 4px;
+}
+
+#coords-display {
+    /* Koordinatalarni ko'rsatish uchun joy */
+    margin-top: -10px;
+    /* Xaritaga yaqinroq */
+    margin-bottom: 15px;
+    font-size: 0.9em;
+    color: #555;
+}
+
+button[type="submit"] {
+    background-color: #4CAF50;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1em;
+}
+
+button[type="submit"]:hover {
+    background-color: #45a049;
+}
+
+/* Yashirin inputlar ko'rinmasligi kerak */
+.form-container input[type="hidden"] {
+    display: none;
+}
+
+/* ... (avvalgi stillar) ... */
+
+.locate-button {
+    /* Yangi tugma uchun stil */
+    background-color: #007bff;
+    /* Ko'k rang */
+    color: white;
+    padding: 8px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.95em;
+    display: inline-block;
+    /* Yonma-yon turishi uchun (agar kerak bo'lsa) */
+    margin-bottom: 10px;
+    /* Koordinata matnigacha joy */
+    transition: background-color 0.2s ease;
+    width: 100%;
+    /* To'liq kenglikda */
+    text-align: center;
+    /* Matn markazda */
+}
+
+.locate-button:hover {
+    background-color: #0056b3;
+    /* To'qroq ko'k */
+}
+
+.locate-button:disabled {
+    /* Aniqlash paytida */
+    background-color: #cccccc;
+    cursor: not-allowed;
+}
+
+#coords-display {
+    margin-top: 0;
+    /* Tugmadan keyin qo'shimcha joy shart emas */
+    margin-bottom: 20px;
+    /* ... qolgan coords-display stillari ... */
+}
+
+.submitBtn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 
@@ -1069,7 +1185,7 @@ iframe {
         justify-content: space-between;
         cursor: pointer;
     }
-    
+
     .burger span {
         height: 4px;
         background-color: #000;
@@ -1079,34 +1195,34 @@ iframe {
     .burger span {
         box-shadow: 0 0 1px 1px white;
     }
-    
+
     .burger span:nth-child(1) {
         width: 20px;
     }
-    
+
     .burger span:nth-child(2) {
         width: 30px;
     }
-    
+
     .burger span:nth-child(3) {
         width: 25px;
         text-align: end;
     }
-    
+
     .burger.active span:nth-child(1) {
         transform: rotate(45deg) translate(2px, 5px);
         width: 30px;
     }
-    
+
     .burger.active span:nth-child(2) {
         opacity: 0;
     }
-    
+
     .burger.active span:nth-child(3) {
         transform: rotate(-45deg) translate(8px, -12px);
         width: 30px;
     }
-    
+
     .menu {
         position: fixed;
         top: 0;
@@ -1119,21 +1235,21 @@ iframe {
         padding: 60px 20px;
         z-index: 1000;
     }
-    
+
     .menu.active {
         right: 0;
     }
-    
+
     .menu ul {
         list-style: none;
         padding: 0;
         margin: 0;
     }
-    
+
     .menu li {
         margin: 20px 0;
     }
-    
+
     .menu a {
         text-decoration: none;
         color: #333;
@@ -1350,7 +1466,7 @@ iframe {
     .viloyat-select {
         width: 250px;
     }
-} 
+}
 
 @media(max-width:900px) {
     .content-item p {
@@ -1512,7 +1628,7 @@ iframe {
 
     .info-card span {
         font-size: 16px;
-    } 
+    }
 
     .timetable {
         font-size: 16px;
@@ -1561,7 +1677,7 @@ iframe {
     .nav-icons {
         display: none;
     }
-    
+
     .content-item p {
         display: flex;
         align-items: center;
@@ -1569,7 +1685,7 @@ iframe {
         padding: 0;
         font-size: 22px;
     }
-    
+
     .content-item h4 {
         display: flex;
         justify-content: center;
@@ -1583,17 +1699,17 @@ iframe {
         display: flex;
         justify-content: space-between;
     }
-    
+
     .btn {
         width: 200px;
-        height: 50px; 
+        height: 50px;
         font-size: 14px;
     }
-    
+
     .burger span {
         box-shadow: 0 0 1px 1px white;
     }
-    
+
     .about-us {
         margin-top: 0;
         padding: 30px 0;
@@ -1615,22 +1731,22 @@ iframe {
     .accepted {
         padding: 70px;
     }
-    
+
     .accepted-header {
         width: 100%;
         font-size: 24px;
     }
-    
+
     .accepted-content {
         padding: 30px 0;
     }
-    
+
     .accepted-content-item {
         display: flex;
         justify-content: center;
         align-items: center;
     }
-    
+
     .wc-header {
         font-size: 20px;
     }
@@ -1645,7 +1761,7 @@ iframe {
         flex-direction: column-reverse;
         gap: 50px;
     }
-    
+
     .water-image-box {
         display: none;
     }
@@ -1812,11 +1928,11 @@ iframe {
     .content-item p {
         font-size: 18px;
     }
-    
+
     .content-item h4 {
         font-size: 36px;
     }
-    
+
     .buttons {
         display: flex;
         justify-content: center;
@@ -1825,12 +1941,12 @@ iframe {
         padding: 0;
         gap: 10px;
     }
-    
+
     .bg-video {
         width: 100vw;
         height: 100vh;
     }
-    
+
     .about-us {
         padding: 0;
     }
@@ -1839,16 +1955,16 @@ iframe {
         width: 100%;
         font-size: 20px;
     }
-    
+
     .wc-header {
         font-size: 18px;
     }
-    
+
     .wc-text {
         width: 100%;
         font-size: 12px;
     }
-    
+
     .wc-top {
         display: flex;
         justify-content: center;
@@ -1862,7 +1978,7 @@ iframe {
         width: 100%;
         height: 2px;
     }
-    
+
     .w-content {
         display: flex;
         flex-direction: column-reverse;
@@ -1920,7 +2036,7 @@ iframe {
         height: 40px;
     }
 
-    .contact-header { 
+    .contact-header {
         width: 100%;
         display: flex;
         justify-content: center;

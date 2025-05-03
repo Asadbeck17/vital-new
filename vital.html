@@ -5,6 +5,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="vital.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+        integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+        integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
     <title>VITAL</title>
 </head>
 
@@ -558,10 +562,34 @@
 
                             <input class="count" name="count" type="number" min="0" max="100" placeholder="Miqdori">
 
-                           
+                            <div class="form-container">
+
+                                <form id="anketaForm" action="/server-ga-yuborish-skripti" method="POST">
+
+                                    <div class="form-group">
+                                        <label>Joylashuvingizni xaritada belgilang:</label>
+                                        <p style="font-size: 0.85em; color: #666;">Xaritada kerakli nuqtani bosing.</p>
+                                        <!-- Xarita uchun joy -->
+                                        <div id="map"></div>
+
+                                        <!-- Tanlangan koordinatalarni foydalanuvchiga ko'rsatish -->
+                                        <div id="coords-display">Koordinatalar: Hali tanlanmagan</div>
+
+                                        <!-- Koordinatalarni serverga yuborish uchun YASHIRIN inputlar -->
+                                        <input type="hidden" id="latitude" name="latitude">
+                                        <input type="hidden" id="longitude" name="longitude">
+                                        <input type="hidden" id="mapLink" name="mapLink">
+                                    </div>
+
+                                </form>
+                            </div>
+
+                            <div class="submitBtn">
+                                <button type="submit" class="send-btn">Yuborish</button>
+                            </div>
+
                         </div>
                     </div>
-                    <button type="submit" class="send-btn">Yuborish</button>
                 </form>
             </div>
         </section>
@@ -601,6 +629,179 @@
 
 
     <script src="vital.js">
+    </script>
+
+    <script>
+        // 1. Kerakli elementlarni olish
+        const mapElement = document.getElementById('map');
+        const coordsDisplay = document.getElementById('coords-display');
+        const latitudeInput = document.getElementById('latitude');
+        const longitudeInput = document.getElementById('longitude');
+
+        // 2. Xaritani sozlash (Toshkent markazi)
+        const map = L.map(mapElement).setView([41.2995, 69.2401], 13);
+
+        // 3. Xarita qatlamini qo'shish
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+            attribution: '© <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
+
+        // 4. Marker uchun o'zgaruvchi
+        let marker = null;
+
+        // 5. Xaritani bosganda ishlaydigan funksiya
+        map.on('click', function (e) {
+            const lat = e.latlng.lat;
+            const lng = e.latlng.lng;
+
+            // Eski markerni o'chirish (agar mavjud bo'lsa)
+            if (marker !== null) {
+                map.removeLayer(marker);
+            }
+
+            // Yangi markerni qo'shish
+            marker = L.marker([lat, lng]).addTo(map);
+            // marker.bindPopup("Siz tanlagan joy").openPopup(); // Popup ixtiyoriy
+
+            // Foydalanuvchiga koordinatalarni ko'rsatish
+            coordsDisplay.textContent = `Koordinatalar: Lat: ${lat.toFixed(6)}, Lng: ${lng.toFixed(6)}`;
+
+            // *** MUHIM: Yashirin inputlarga qiymatlarni yozish ***
+            latitudeInput.value = lat.toFixed(6);
+            longitudeInput.value = lng.toFixed(6);
+
+            console.log("Yashirin inputlar yangilandi:", latitudeInput.value, longitudeInput.value);
+        });
+
+        // (Ixtiyoriy) Foydalanuvchining joriy joylashuvini olishga urinish
+        map.locate({ setView: true, maxZoom: 16 });
+
+        function onLocationFound(e) {
+            const lat = e.latlng.lat;
+            const lng = e.latlng.lng;
+
+            // Agar hali marker qo'yilmagan bo'lsa, joriy joyga qo'yish
+            if (marker === null) {
+                marker = L.marker(e.latlng).addTo(map)
+                    .bindPopup("Siz taxminan shu yerdasiz").openPopup();
+
+                coordsDisplay.textContent = `Koordinatalar (avtomatik): Lat: ${lat.toFixed(6)}, Lng: ${lng.toFixed(6)}`;
+
+                // Avtomatik topilganda ham yashirin inputlarni to'ldirish
+                latitudeInput.value = lat.toFixed(6);
+                longitudeInput.value = lng.toFixed(6);
+                console.log("Avtomatik koordinatalar inputlarga yozildi:", latitudeInput.value, longitudeInput.value);
+            }
+            // const radius = e.accuracy / 2;
+            // L.circle(e.latlng, radius).addTo(map);
+        }
+
+        function onLocationError(e) {
+            console.warn("Joylashuvni olishda xato:", e.message);
+            alert("Joylashuvingizni avtomatik aniqlab bo'lmadi. Iltimos, xaritadan o'zingiz belgilang.");
+            // Markaz Toshkentda qolaveradi (setView da belgilangan)
+        }
+
+        map.on('locationfound', onLocationFound);
+        map.on('locationerror', onLocationError);
+
+        // (Ixtiyoriy) Forma yuborilishidan oldin tekshirish
+        const form = document.getElementById('anketaForm');
+        form.addEventListener('submit', function (event) {
+            // Agar lokatsiya tanlanmagan bo'lsa, yuborishni to'xtatish (masalan)
+            if (!latitudeInput.value || !longitudeInput.value) {
+                alert("Iltimos, xaritada joylashuvingizni belgilang!");
+                event.preventDefault(); // Formani yuborishni to'xtatadi
+            }
+        });
+
+        // --- XARITA SOZLAMALARI ---
+        // ... (avvalgi o'zgaruvchilar: mapDiv, coordsDisplay, latitudeInput, longitudeInput, anketaForm) ...
+
+        // YANGI: Lokatsiya tugmasini topib olamiz
+        const locateButton = document.getElementById('locateBtn');
+
+        // ... (qolgan xarita sozlamalari: initialCenter, initialZoom, map, tileLayer, currentMarker) ...
+
+
+        // --- XARITANI BOSGANDA ISHLAYDIGAN FUNKSIYA ---
+        // ... (bu funksiya o'zgarishsiz qoladi) ...
+        map.on('click', function (event) {
+            const clickedLat = event.latlng.lat;
+            const clickedLng = event.latlng.lng;
+            updateLocation(clickedLat, clickedLng); // Joylashuvni yangilash funksiyasini chaqiramiz
+        });
+
+
+        // --- YANGI: LOKATSIYA TUGMASI BOSILGANDA ISHLAYDIGAN FUNKSIYA ---
+        locateButton.addEventListener('click', function () {
+            // Brauzer geolokatsiyani qo'llab-quvvatlashini tekshiramiz
+            if (!navigator.geolocation) {
+                alert("Sizning brauzeringiz geolokatsiyani qo'llab-quvvatlamaydi.");
+                return;
+            }
+
+            // Tugmani vaqtincha o'chiramiz va matnini o'zgartiramiz
+            locateButton.disabled = true;
+            locateButton.innerHTML = `
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-hourglass-split" viewBox="0 0 16 16" style="vertical-align: -2px; margin-right: 5px;">
+          <path d="M2.5 15a.5.5 0 1 1 0-1h1v-1a4.5 4.5 0 0 1 2.557-4.06c.29-.139.443-.377.443-.59v-.7c0-.213-.154-.451-.443-.59A4.5 4.5 0 0 1 3.5 3V2h-1a.5.5 0 0 1 0-1h11a.5.5 0 0 1 0 1h-1v1a4.5 4.5 0 0 1-2.557 4.06c-.29.139-.443.377-.443.59v.7c0 .213.154.451.443.59A4.5 4.5 0 0 1 12.5 13v1h1a.5.5 0 0 1 0 1zm-1 0v-1h1v1zm10.5 0v-1h1v1zM4.5 3a3.5 3.5 0 0 0-1 6.906c.364.174.564.45.564.746v.748c0 .296-.2.572-.564.746A3.5 3.5 0 0 0 4.5 13h7a3.5 3.5 0 0 0 1-6.906c-.364-.174-.564-.45-.564-.746v-.748c0-.296.2-.572.564-.746A3.5 3.5 0 0 0 11.5 3z"/>
+        </svg>
+        Aniqlanmoqda...`;
+            coordsDisplay.textContent = "Joylashuv aniqlanmoqda, iltimos kuting...";
+            coordsDisplay.style.backgroundColor = '#e9e9e9';
+
+            // Geolokatsiyani olishga harakat qilamiz
+            navigator.geolocation.getCurrentPosition(
+                // Muvaffaqiyatli topilsa:
+                function (position) {
+                    const lat = position.coords.latitude;
+                    const lng = position.coords.longitude;
+
+                    updateLocation(lat, lng); // Joylashuvni yangilash funksiyasini chaqiramiz
+                    map.flyTo([lat, lng], 16); // Xaritani topilgan joyga silliq olib boramiz (zoom 16)
+
+                    // Tugmani aktivlashtiramiz va asl matnini qaytaramiz
+                    locateButton.disabled = false;
+                    locateButton.innerHTML = `
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-geo-alt-fill" viewBox="0 0 16 16" style="vertical-align: -2px; margin-right: 5px;">
+                    <path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10m0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6"/>
+                </svg>
+                Mening Joylashuvimni Top`;
+                },
+                // Xatolik yuz bersa:
+                function (error) {
+                    console.error("Geolokatsiya xatosi:", error);
+                    let message = "Joylashuvni aniqlashda xatolik yuz berdi.";
+                    if (error.code === error.PERMISSION_DENIED) {
+                        message = "Siz joylashuvni aniqlashga ruxsat bermadingiz.";
+                    } else if (error.code === error.POSITION_UNAVAILABLE) {
+                        message = "Joylashuv ma'lumotlari mavjud emas.";
+                    } else if (error.code === error.TIMEOUT) {
+                        message = "Joylashuvni aniqlash uchun vaqt tugadi.";
+                    }
+                    alert(message);
+                    coordsDisplay.textContent = message;
+                    coordsDisplay.style.backgroundColor = '#f8d7da'; // Qizil fon
+
+                    // Tugmani aktivlashtiramiz va asl matnini qaytaramiz
+                    locateButton.disabled = false;
+                    locateButton.innerHTML = `
+               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-geo-alt-fill" viewBox="0 0 16 16" style="vertical-align: -2px; margin-right: 5px;">
+                    <path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10m0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6"/>
+                </svg>
+                Mening Joylashuvimni Top`;
+                },
+                // Qo'shimcha sozlamalar (ixtiyoriy)
+                {
+                    enableHighAccuracy: true, // Yuqori aniqlikni so'rash
+                    timeout: 10000,         // Maksimal kutish vaqti (10 sekund)
+                    maximumAge: 0           // Keshdagi ma'lumotdan foydalanmaslik
+                }
+            );
+        });
+
     </script>
 
 </body>

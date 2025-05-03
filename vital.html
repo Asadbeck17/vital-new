@@ -392,7 +392,8 @@
                         <br>
                         Zam-Zam suvi shifobaxsh hamda inson salomatligi uchun bir qator foydali xususiyatlarga boy
                         bo’lganligi sababli biz uni Vital suvlariga qo’shamiz. Undan tashqari Vital suvining yumshoqligi
-                        aynan shu Zam-Zam suvining qo’shilishi boisidir. Zam-Zam suvi qo’shilgan suv, Zam-Zam suvidagi bor
+                        aynan shu Zam-Zam suvining qo’shilishi boisidir. Zam-Zam suvi qo’shilgan suv, Zam-Zam suvidagi
+                        bor
                         barcha foydali elementlarni o’z ichiga jamlagan bo’lib, toza va shaffof hisoblanadi. Siz Vital
                         suvini ichish orqali barcha foydali xususiyatlardan bahramand bo’lishingiz mumkin
                     </span>
@@ -504,8 +505,7 @@
                 <div class="location">
                     <iframe
                         src="https://www.google.com/maps/embed?pb=!1m16!1m12!1m3!1d47940.12540289641!2d69.1823903422869!3d41.325006354517406!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!2m1!1sToshkent%20sh.%2C%20Shayxontohur%20tum.%2C%20Kichik%20xalqa%20yo&#39;li%2C%2063A!5e0!3m2!1sru!2s!4v1742897641632!5m2!1sru!2s"
-                        style="border:0;" allowfullscreen="" loading="lazy"
-                        referrerpolicy="no-referrer-when-downgrade">
+                        style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
                     </iframe>
                 </div>
             </div>
@@ -515,18 +515,20 @@
         <section class="your-contact">
             <h1>Ma'lumotingiz</h1>
             <div class="your-contact-box">
-                <form class="form-side" action="">
+                <form class="form-side" method="post" action="http://localhost:3000/submit-form">
+
                     <div class="input-box">
                         <div class="first-col">
-                            <input type="text" placeholder="Ism" required>
-                            <input type="text" placeholder="Familiya" required>
-                            <input type="email" placeholder="Email" required>
+                            <input name="name" class="name-input" type="text" placeholder="Ism" required>
+                            <input name="family" class="family-input" type="text" placeholder="Familiya" required>
+                            <input name="email" class="email-input" type="email" placeholder="Email" required>
                         </div>
                         <div class="second-col">
-                            <input type="number" placeholder="Telefon raqami" min="0" required>
-                            <select class="viloyat-select" name="" id="">
+                            <input name="number" class="number-input" type="number" placeholder="Telefon raqami" min="0"
+                                required>
+                            <select class="viloyat-select" name="region" id="region">
                                 <option value="Viloyat" selected disabled>Viloyat</option>
-                                <option value="Toshkent">Toshkent</option> 
+                                <option value="Toshkent">Toshkent</option>
                                 <option value="Samarqand">Samarqand</option>
                                 <option value="Buxoro">Buxoro</option>
                                 <option value="Farg'ona">Farg'ona</option>
@@ -540,10 +542,26 @@
                                 <option value="Sirdaryo">Sirdaryo</option>
                                 <option value="Qoraqalpog'iston">Qoraqalpog'iston</option>
                             </select>
-                        <input type="text" placeholder="Manzil" required>
+                            <input name="address" class="address-input" type="text" placeholder="Manzil" required>
+                        </div>
+
+                        <div>
+
+                            <select class="suv-turlari" name="turi" id="turi">
+
+                                <option value="Suv turi" selected disabled>Suv turi</option>
+                                <option value="1.5L">1.5L</option>
+                                <option value="19L">19L</option>
+                                <option value="Kuller">Kuller</option>
+
+                            </select>
+
+                            <input class="count" name="count" type="number" min="0" max="100" placeholder="Miqdori">
+
+                           
                         </div>
                     </div>
-                    <button class="send-btn">Yuborish</button>
+                    <button type="submit" class="send-btn">Yuborish</button>
                 </form>
             </div>
         </section>
@@ -582,125 +600,7 @@
     </div>
 
 
-    <script>
-        const burger = document.getElementById('burger');
-        const menu = document.getElementById('menu');
-        const moreBtn = document.querySelector('.more-btn');
-        const aboutUs = document.querySelector('.about-us');
-        const item_1 = document.getElementById('item-1');
-        const item_2 = document.getElementById('item-2');
-        const item_3 = document.getElementById('item-3');
-        const item_4 = document.getElementById('item-4');
-        const item_5 = document.getElementById('item-5');
-        const moreBtn_1 = document.getElementById('moreBtn-1');
-        const moreBtn_2 = document.getElementById('moreBtn-2');
-        const moreBtn_3 = document.getElementById('moreBtn-3');
-        const moreBtn_4 = document.getElementById('moreBtn-4');
-        const moreBtn_5 = document.getElementById('moreBtn-5');
-        const addBtn = document.querySelector('.add-btn');
-
-        burger.addEventListener('click', () => {
-            burger.classList.toggle('active');
-            menu.classList.toggle('active');
-        });
-
-        moreBtn.addEventListener('click', () => {
-            const moreInfo = document.querySelector('.more-info');
-            moreInfo.classList.toggle('active');
-            if (moreInfo.classList.contains('active')) {
-                moreBtn.textContent = 'Kamroq ←';
-                moreInfo.classList.add('more-info-active');
-                aboutUs.classList.add('about-us-height');
-            } else {
-                moreBtn.textContent = 'Ko\'proq →';
-                moreInfo.classList.remove('more-info-active');
-                aboutUs.classList.remove('about-us-height');
-            }
-
-        });
-
-        item_1.addEventListener('click', () => {
-            const moreText1 = document.querySelector('.more-text-1');
-            moreText1.classList.toggle('active');
-            if (moreText1.classList.contains('active')) {
-                moreBtn_1.textContent = 'Kamroq ←';
-                moreText1.classList.add('more-text-active');
-                item_1.classList.add('acc-content-item-size');
-            } else {
-                moreBtn_1.textContent = 'Ko\'proq →';
-                moreText1.classList.remove('more-text-active');
-                item_1.classList.remove('acc-content-item-size');
-            }
-        });
-
-        item_2.addEventListener('click', () => {
-            const moreText2 = document.querySelector('.more-text-2');
-            moreText2.classList.toggle('active');
-            if (moreText2.classList.contains('active')) {
-                moreBtn_2.textContent = 'Kamroq ←';
-                moreText2.classList.add('more-text-active');
-                item_2.classList.add('acc-content-item-size');
-            } else {
-                moreBtn_2.textContent = 'Ko\'proq →';
-                moreText2.classList.remove('more-text-active');
-                item_2.classList.remove('acc-content-item-size');
-            }
-        });
-
-        item_3.addEventListener('click', () => {
-            const moreText3 = document.querySelector('.more-text-3');
-            moreText3.classList.toggle('active');
-            if (moreText3.classList.contains('active')) {
-                moreBtn_3.textContent = 'Kamroq ←';
-                moreText3.classList.add('more-text-active');
-                item_3.classList.add('acc-content-item-size-3');
-            } else {
-                moreBtn_3.textContent = 'Ko\'proq →';
-                moreText3.classList.remove('more-text-active');
-                item_3.classList.remove('acc-content-item-size-3');
-            }
-        });
-
-        item_4.addEventListener('click', () => {
-            const moreText4 = document.querySelector('.more-text-4');
-            moreText4.classList.toggle('active');
-            if (moreText4.classList.contains('active')) {
-                moreBtn_4.textContent = 'Kamroq ←';
-                moreText4.classList.add('more-text-active');
-                item_4.classList.add('acc-content-item-size');
-            } else {
-                moreBtn_4.textContent = 'Ko\'proq →';
-                moreText4.classList.remove('more-text-active');
-                item_4.classList.remove('acc-content-item-size');
-            }
-        });
-
-        item_5.addEventListener('click', () => {
-            const moreText5 = document.querySelector('.more-text-5');
-            moreText5.classList.toggle('active');
-            if (moreText5.classList.contains('active')) {
-                moreBtn_5.textContent = 'Kamroq ←';
-                moreText5.classList.add('more-text-active');
-                item_5.classList.add('acc-content-item-size');
-            } else {
-                moreBtn_5.textContent = 'Ko\'proq →';
-                moreText5.classList.remove('more-text-active');
-                item_5.classList.remove('acc-content-item-size');
-            }
-        });
-
-        addBtn.addEventListener('click', () => {
-            const addMore = document.querySelector('.add-more');
-            addMore.classList.toggle('active');
-            if (addMore.classList.contains('active')) {
-                addBtn.textContent = 'Kamroq ←';
-                addMore.classList.add('add-text');
-            } else {
-                addBtn.textContent = 'Ko\'proq →';
-                addMore.classList.remove('add-text');
-            }
-        });
-
+    <script src="vital.js">
     </script>
 
 </body>

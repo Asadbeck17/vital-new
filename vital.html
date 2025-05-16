@@ -9,6 +9,7 @@
         integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
         integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <title>VITAL</title>
 </head>
 
@@ -519,19 +520,19 @@
         <section class="your-contact">
             <h1>Ma'lumotingiz</h1>
             <div class="your-contact-box">
-                <form class="form-side" method="post" action="http://localhost:3000/submit-form">
-
+                <form class="form-side" id="mainOrderForm" method="post" action="http://localhost:3000/submit-form">
                     <div class="input-box">
                         <div class="first-col">
-                            <input name="name" class="name-input" type="text" placeholder="Ism" required>
-                            <input name="family" class="family-input" type="text" placeholder="Familiya" required>
-                            <input name="email" class="email-input" type="email" placeholder="Email" required>
+                            <input name="name" class="name-input" type="text" placeholder="Ism">
+                            <input name="family" class="family-input" type="text" placeholder="Familiya">
+                            <input name="email" class="email-input" type="email" placeholder="Email">
                         </div>
                         <div class="second-col">
-                            <input name="number" class="number-input" type="number" placeholder="Telefon raqami" min="0"
-                                required>
+                            <input name="number" class="number-input" type="tel"
+                                placeholder="Telefon raqami (901234567)" pattern="[0-9]{9}"
+                                title="9 raqamli telefon raqamini kiriting (masalan, 901234567)">
                             <select class="viloyat-select" name="region" id="region">
-                                <option value="Viloyat" selected disabled>Viloyat</option>
+                                <option value="" selected disabled>Viloyat</option>
                                 <option value="Toshkent">Toshkent</option>
                                 <option value="Samarqand">Samarqand</option>
                                 <option value="Buxoro">Buxoro</option>
@@ -546,48 +547,38 @@
                                 <option value="Sirdaryo">Sirdaryo</option>
                                 <option value="Qoraqalpog'iston">Qoraqalpog'iston</option>
                             </select>
-                            <input name="address" class="address-input" type="text" placeholder="Manzil" required>
+                            <input name="address" class="address-input" type="text" placeholder="Manzil">
                         </div>
 
-                        <div>
-
-                            <select class="suv-turlari" name="turi" id="turi">
-
-                                <option value="Suv turi" selected disabled>Suv turi</option>
-                                <option value="1.5L">1.5L</option>
-                                <option value="19L">19L</option>
-                                <option value="Kuller">Kuller</option>
-
-                            </select>
-
-                            <input class="count" name="count" type="number" min="0" max="100" placeholder="Miqdori">
-
-                            <div class="form-container">
-
-                                <form id="anketaForm" action="/server-ga-yuborish-skripti" method="POST">
-
-                                    <div class="form-group">
-                                        <label>Joylashuvingizni xaritada belgilang:</label>
-                                        <p style="font-size: 0.85em; color: #666;">Xaritada kerakli nuqtani bosing.</p>
-                                        <!-- Xarita uchun joy -->
-                                        <div id="map"></div>
-
-                                        <!-- Tanlangan koordinatalarni foydalanuvchiga ko'rsatish -->
-                                        <div id="coords-display">Koordinatalar: Hali tanlanmagan</div>
-
-                                        <!-- Koordinatalarni serverga yuborish uchun YASHIRIN inputlar -->
-                                        <input type="hidden" id="latitude" name="latitude">
-                                        <input type="hidden" id="longitude" name="longitude">
-                                        <input type="hidden" id="mapLink" name="mapLink">
-                                    </div>
-
-                                </form>
+                        <div class="added-input-container" style="flex-basis: 100%;">
+                            <div class="added-input">
+                                <select class="suv-turlari" name="turi" id="turi">
+                                    <option value="" selected disabled>Suv turi</option>
+                                    <option value="1.5L">1.5L</option>
+                                    <option value="19L">19L</option>
+                                    <option value="Kuller">Kuller</option>
+                                </select>
+                                <input class="count" name="count" type="number" min="1" placeholder="Miqdori">
                             </div>
+                        </div>
 
-                            <div class="submitBtn">
-                                <button type="submit" class="send-btn">Yuborish</button>
+
+                        <div class="form-container" style="flex-basis: 100%;">
+                            <div class="form-group">
+                                <label for="map">Joylashuvingizni xaritada belgilang:</label>
+                                <p style="font-size: 0.85em; color: #666;">Xaritada kerakli nuqtani bosing.</p>
+                                <div id="map"></div>
+                                <div id="coords-display">Koordinatalar: Hali tanlanmagan</div>
+                                <input type="hidden" id="latitude" name="latitude">
+                                <input type="hidden" id="longitude" name="longitude">
                             </div>
+                        </div>
+                    </div>
 
+
+                    <div class="submitBtn-container" style="flex-basis: 100%;">
+                        <div class="submitBtn">
+                            <button type="submit" class="send-btn">Yuborish</button>
                         </div>
                     </div>
                 </form>
@@ -632,177 +623,183 @@
     </script>
 
     <script>
-        // 1. Kerakli elementlarni olish
+
         const mapElement = document.getElementById('map');
         const coordsDisplay = document.getElementById('coords-display');
         const latitudeInput = document.getElementById('latitude');
         const longitudeInput = document.getElementById('longitude');
 
-        // 2. Xaritani sozlash (Toshkent markazi)
-        const map = L.map(mapElement).setView([41.2995, 69.2401], 13);
 
-        // 3. Xarita qatlamini qo'shish
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            maxZoom: 19,
-            attribution: '© <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-        }).addTo(map);
+        let leafletMap;
+        let currentMarker = null;
 
-        // 4. Marker uchun o'zgaruvchi
-        let marker = null;
+        if (mapElement) {
+            leafletMap = L.map(mapElement).setView([41.2995, 69.2401], 12);
 
-        // 5. Xaritani bosganda ishlaydigan funksiya
-        map.on('click', function (e) {
-            const lat = e.latlng.lat;
-            const lng = e.latlng.lng;
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                maxZoom: 19,
+                attribution: '© <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            }).addTo(leafletMap);
 
-            // Eski markerni o'chirish (agar mavjud bo'lsa)
-            if (marker !== null) {
-                map.removeLayer(marker);
-            }
+            leafletMap.on('click', function (e) {
+                const lat = e.latlng.lat;
+                const lng = e.latlng.lng;
 
-            // Yangi markerni qo'shish
-            marker = L.marker([lat, lng]).addTo(map);
-            // marker.bindPopup("Siz tanlagan joy").openPopup(); // Popup ixtiyoriy
+                if (currentMarker) {
+                    leafletMap.removeLayer(currentMarker);
+                }
 
-            // Foydalanuvchiga koordinatalarni ko'rsatish
-            coordsDisplay.textContent = `Koordinatalar: Lat: ${lat.toFixed(6)}, Lng: ${lng.toFixed(6)}`;
-
-            // *** MUHIM: Yashirin inputlarga qiymatlarni yozish ***
-            latitudeInput.value = lat.toFixed(6);
-            longitudeInput.value = lng.toFixed(6);
-
-            console.log("Yashirin inputlar yangilandi:", latitudeInput.value, longitudeInput.value);
-        });
-
-        // (Ixtiyoriy) Foydalanuvchining joriy joylashuvini olishga urinish
-        map.locate({ setView: true, maxZoom: 16 });
-
-        function onLocationFound(e) {
-            const lat = e.latlng.lat;
-            const lng = e.latlng.lng;
-
-            // Agar hali marker qo'yilmagan bo'lsa, joriy joyga qo'yish
-            if (marker === null) {
-                marker = L.marker(e.latlng).addTo(map)
-                    .bindPopup("Siz taxminan shu yerdasiz").openPopup();
-
-                coordsDisplay.textContent = `Koordinatalar (avtomatik): Lat: ${lat.toFixed(6)}, Lng: ${lng.toFixed(6)}`;
-
-                // Avtomatik topilganda ham yashirin inputlarni to'ldirish
+                currentMarker = L.marker([lat, lng]).addTo(leafletMap);
+                coordsDisplay.textContent = `Koordinatalar: Lat: ${lat.toFixed(6)}, Lng: ${lng.toFixed(6)}`;
                 latitudeInput.value = lat.toFixed(6);
                 longitudeInput.value = lng.toFixed(6);
-                console.log("Avtomatik koordinatalar inputlarga yozildi:", latitudeInput.value, longitudeInput.value);
-            }
-            // const radius = e.accuracy / 2;
-            // L.circle(e.latlng, radius).addTo(map);
+
+            });
         }
 
-        function onLocationError(e) {
-            console.warn("Joylashuvni olishda xato:", e.message);
-            alert("Joylashuvingizni avtomatik aniqlab bo'lmadi. Iltimos, xaritadan o'zingiz belgilang.");
-            // Markaz Toshkentda qolaveradi (setView da belgilangan)
-        }
 
-        map.on('locationfound', onLocationFound);
-        map.on('locationerror', onLocationError);
+        const mainOrderForm = document.getElementById('mainOrderForm');
 
-        // (Ixtiyoriy) Forma yuborilishidan oldin tekshirish
-        const form = document.getElementById('anketaForm');
-        form.addEventListener('submit', function (event) {
-            // Agar lokatsiya tanlanmagan bo'lsa, yuborishni to'xtatish (masalan)
+        mainOrderForm.addEventListener('submit', async function (event) {
+            event.preventDefault();
+
+
+            let formIsValid = true;
+            let firstInvalidField = null;
+            const errorFields = [];
+
+
+            mainOrderForm.querySelectorAll('input[required], select[required]').forEach(field => {
+                field.classList.remove('error');
+                let isEmpty = false;
+                if (field.type === 'checkbox' || field.type === 'radio') {
+                    if (!field.checked) {
+                        isEmpty = true;
+                    }
+                } else if (field.tagName === 'SELECT') {
+                    if (field.value === "" || field.selectedOptions[0].disabled) {
+                        isEmpty = true;
+                    }
+                }
+                else if (field.value.trim() === '') {
+                    isEmpty = true;
+                }
+
+                if (isEmpty) {
+                    formIsValid = false;
+                    field.classList.add('error');
+                    errorFields.push(field.placeholder || field.name || 'Noma\'lum maydon');
+                    if (!firstInvalidField) {
+                        firstInvalidField = field; h
+                    }
+                }
+            });
+
+
             if (!latitudeInput.value || !longitudeInput.value) {
-                alert("Iltimos, xaritada joylashuvingizni belgilang!");
-                event.preventDefault(); // Formani yuborishni to'xtatadi
+                formIsValid = false;
+                errorFields.push('');
+                mapElement.classList.add('error');
+                if (!firstInvalidField) {
+                    firstInvalidField = latitudeInput;
+                }
+            } else {
+                mapElement.classList.remove('error');
             }
-        });
-
-        // --- XARITA SOZLAMALARI ---
-        // ... (avvalgi o'zgaruvchilar: mapDiv, coordsDisplay, latitudeInput, longitudeInput, anketaForm) ...
-
-        // YANGI: Lokatsiya tugmasini topib olamiz
-        const locateButton = document.getElementById('locateBtn');
-
-        // ... (qolgan xarita sozlamalari: initialCenter, initialZoom, map, tileLayer, currentMarker) ...
 
 
-        // --- XARITANI BOSGANDA ISHLAYDIGAN FUNKSIYA ---
-        // ... (bu funksiya o'zgarishsiz qoladi) ...
-        map.on('click', function (event) {
-            const clickedLat = event.latlng.lat;
-            const clickedLng = event.latlng.lng;
-            updateLocation(clickedLat, clickedLng); // Joylashuvni yangilash funksiyasini chaqiramiz
-        });
+            if (!formIsValid) {
+                let errorMessage = "Iltimos, quyidagi maydonlarni to'ldiring!";
+                errorFields.forEach(fieldName => {
+                    errorMessage += `<li>${fieldName}</li>`;
+                });
+                errorMessage += "</ul>";
 
-
-        // --- YANGI: LOKATSIYA TUGMASI BOSILGANDA ISHLAYDIGAN FUNKSIYA ---
-        locateButton.addEventListener('click', function () {
-            // Brauzer geolokatsiyani qo'llab-quvvatlashini tekshiramiz
-            if (!navigator.geolocation) {
-                alert("Sizning brauzeringiz geolokatsiyani qo'llab-quvvatlamaydi.");
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Maydonlar to\'ldirilmagan!',
+                    html: errorMessage,
+                    confirmButtonText: 'OK'
+                });
+                if (firstInvalidField && typeof firstInvalidField.focus === 'function') {
+                    firstInvalidField.focus();
+                }
                 return;
             }
 
-            // Tugmani vaqtincha o'chiramiz va matnini o'zgartiramiz
-            locateButton.disabled = true;
-            locateButton.innerHTML = `
-        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-hourglass-split" viewBox="0 0 16 16" style="vertical-align: -2px; margin-right: 5px;">
-          <path d="M2.5 15a.5.5 0 1 1 0-1h1v-1a4.5 4.5 0 0 1 2.557-4.06c.29-.139.443-.377.443-.59v-.7c0-.213-.154-.451-.443-.59A4.5 4.5 0 0 1 3.5 3V2h-1a.5.5 0 0 1 0-1h11a.5.5 0 0 1 0 1h-1v1a4.5 4.5 0 0 1-2.557 4.06c-.29.139-.443.377-.443.59v.7c0 .213.154.451.443.59A4.5 4.5 0 0 1 12.5 13v1h1a.5.5 0 0 1 0 1zm-1 0v-1h1v1zm10.5 0v-1h1v1zM4.5 3a3.5 3.5 0 0 0-1 6.906c.364.174.564.45.564.746v.748c0 .296-.2.572-.564.746A3.5 3.5 0 0 0 4.5 13h7a3.5 3.5 0 0 0 1-6.906c-.364-.174-.564-.45-.564-.746v-.748c0-.296.2-.572.564-.746A3.5 3.5 0 0 0 11.5 3z"/>
-        </svg>
-        Aniqlanmoqda...`;
-            coordsDisplay.textContent = "Joylashuv aniqlanmoqda, iltimos kuting...";
-            coordsDisplay.style.backgroundColor = '#e9e9e9';
 
-            // Geolokatsiyani olishga harakat qilamiz
-            navigator.geolocation.getCurrentPosition(
-                // Muvaffaqiyatli topilsa:
-                function (position) {
-                    const lat = position.coords.latitude;
-                    const lng = position.coords.longitude;
-
-                    updateLocation(lat, lng); // Joylashuvni yangilash funksiyasini chaqiramiz
-                    map.flyTo([lat, lng], 16); // Xaritani topilgan joyga silliq olib boramiz (zoom 16)
-
-                    // Tugmani aktivlashtiramiz va asl matnini qaytaramiz
-                    locateButton.disabled = false;
-                    locateButton.innerHTML = `
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-geo-alt-fill" viewBox="0 0 16 16" style="vertical-align: -2px; margin-right: 5px;">
-                    <path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10m0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6"/>
-                </svg>
-                Mening Joylashuvimni Top`;
-                },
-                // Xatolik yuz bersa:
-                function (error) {
-                    console.error("Geolokatsiya xatosi:", error);
-                    let message = "Joylashuvni aniqlashda xatolik yuz berdi.";
-                    if (error.code === error.PERMISSION_DENIED) {
-                        message = "Siz joylashuvni aniqlashga ruxsat bermadingiz.";
-                    } else if (error.code === error.POSITION_UNAVAILABLE) {
-                        message = "Joylashuv ma'lumotlari mavjud emas.";
-                    } else if (error.code === error.TIMEOUT) {
-                        message = "Joylashuvni aniqlash uchun vaqt tugadi.";
-                    }
-                    alert(message);
-                    coordsDisplay.textContent = message;
-                    coordsDisplay.style.backgroundColor = '#f8d7da'; // Qizil fon
-
-                    // Tugmani aktivlashtiramiz va asl matnini qaytaramiz
-                    locateButton.disabled = false;
-                    locateButton.innerHTML = `
-               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-geo-alt-fill" viewBox="0 0 16 16" style="vertical-align: -2px; margin-right: 5px;">
-                    <path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10m0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6"/>
-                </svg>
-                Mening Joylashuvimni Top`;
-                },
-                // Qo'shimcha sozlamalar (ixtiyoriy)
-                {
-                    enableHighAccuracy: true, // Yuqori aniqlikni so'rash
-                    timeout: 10000,         // Maksimal kutish vaqti (10 sekund)
-                    maximumAge: 0           // Keshdagi ma'lumotdan foydalanmaslik
+            const formData = new FormData(mainOrderForm);
+            const data = {};
+            formData.forEach((value, key) => {
+                if (key === 'count' || key === 'latitude' || key === 'longitude') {
+                    data[key] = parseFloat(value) || 0;
+                } else {
+                    data[key] = value;
                 }
-            );
-        });
+            });
 
+            Swal.fire({
+                title: 'Yuborilmoqda...',
+                text: 'Iltimos, kuting.',
+                allowOutsideClick: false,
+                didOpen: () => {
+                    Swal.showLoading();
+                }
+            });
+
+            try {
+                const response = await fetch('http://localhost:3000/submit-form', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                });
+
+                const result = await response.json();
+                Swal.close();
+
+                if (result.success) {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Muvaffaqiyatli!',
+                        text: result.message,
+                        confirmButtonText: 'OK'
+                    });
+                    mainOrderForm.reset();
+                    if (currentMarker) {
+                        leafletMap.removeLayer(currentMarker);
+                        currentMarker = null;
+                    }
+                    coordsDisplay.textContent = 'Koordinatalar: Hali tanlanmagan';
+                    latitudeInput.value = '';
+                    longitudeInput.value = '';
+                    if (leafletMap) {
+                        leafletMap.setView([41.2995, 69.2401], 12);
+                    }
+
+
+                } else {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Xatolik!',
+                        text: result.message || 'Noma\'lum xatolik yuz berdi.',
+                        confirmButtonText: 'Qaytadan urinish'
+                    });
+                }
+            } catch (error) {
+                Swal.close();
+                console.error('Formani yuborishda xatolik:', error);
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Server bilan bog\'lanishda xatolik!',
+                    text: 'Iltimos, internet aloqangizni tekshiring yoki keyinroq qayta urinib ko\'ring.',
+                    confirmButtonText: 'OK'
+                });
+            }
+        });
     </script>
+
 
 </body>
 
